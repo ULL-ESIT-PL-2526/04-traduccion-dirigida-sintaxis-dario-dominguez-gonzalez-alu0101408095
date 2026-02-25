@@ -128,4 +128,19 @@ describe('Parser Tests', () => {
     });
   });
 
+  describe('Comentarios - Tarea 3', () => {
+    test('debe ignorar comentarios al final de una expresión', () => {
+      expect(parse("10 + 5 // esto es un comentario")).toBe(15);
+      expect(parse("2 ** 3 // potencia y comentario")).toBe(8);
+    });
+
+    test('debe permitir comentarios en líneas independientes', () => {
+      // Nota: El lexer debe manejar el salto de línea tras el comentario
+      expect(parse("// Comentario inicial\n 20 / 2")).toBe(10);
+    });
+
+    test('debe ignorar comentarios que contienen símbolos de operadores', () => {
+      expect(parse("100 - 50 // 10 + 20 * 5")).toBe(50);
+    });
+  });
 });
