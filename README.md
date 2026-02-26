@@ -45,7 +45,7 @@ Para la entrada 123**45+@, el analizador léxico procesará la cadena carácter 
 - EOF: Corresponde al final de la cadena de entrada.
 
 ### 3. Indique por qué ** debe aparecer antes que [-+*/].
-Esto es debido a que si se quiere  tratar "\*\*" como un token unico se debe poner entre comillas. En el caso de usar [-+*/**] el analizador tratara el "\*\*" como dos * individuales.
+Esto es debido a que si se quiere  tratar "\*\*" como un token unico se debe poner entre comillas. En el caso de usar [-+*/] antes el analizador tratara el "\*\*" como dos * individuales.
 
 ### 4. Explique cuándo se devuelve EOF.
 Se devuelve el EOF cuando el analizador encuentra el final del archivo.
