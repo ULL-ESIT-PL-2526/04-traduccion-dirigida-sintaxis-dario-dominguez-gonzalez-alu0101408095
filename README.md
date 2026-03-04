@@ -56,3 +56,83 @@ La regla "." con retorno (INVALID) sirve para capturar errores de cualquier carÃ
 
 # Practica 5
 
+## 1.1 Derivaciones
+
+### 1.
+$L \Rightarrow E$ 
+$\Rightarrow E \text{ op } T$ 
+$\Rightarrow E \text{ op } T \text{ op } T$ 
+$\Rightarrow T \text{ op } T \text{ op } T$ 
+$\Rightarrow 4.0 \text{ op } T \text{ op } T$ 
+$\Rightarrow 4.0 - 2.0 \text{ op } T$ 
+$\Rightarrow 4.0 - 2.0 * 3.0$
+
+### 2.
+$L \Rightarrow E$ 
+$\Rightarrow E \text{ op } T$ 
+$\Rightarrow E \text{ op } T \text{ op } T$ 
+$\Rightarrow T \text{ op } T \text{ op } T$ 
+$\Rightarrow 2 \text{ op } T \text{ op } T$ 
+$\Rightarrow 2 ** 3 \text{ op } T$ 
+$\Rightarrow 2 ** 3 ** 2$ 
+
+### 3.
+$L \Rightarrow E$ 
+$\Rightarrow E \text{ op } T$ 
+$\Rightarrow E \text{ op } T \text{ op } T$ 
+$\Rightarrow T \text{ op } T \text{ op } T$ 
+$\Rightarrow 7 \text{ op } T \text{ op } T$ 
+$\Rightarrow 7 - 4 \text{ op } T$ 
+$\Rightarrow 7 - 4 / T$ 
+$\Rightarrow 7 - 4 / 2$
+
+## 1.2 Arbol
+
+### 1.
+
+```mermaid
+graph TD
+    L1[L] --> E1[E]
+    E1 --> E2[E]
+    E1 --> OP1[op: *]
+    E1 --> T1[T]
+    T1 --> N1[number: 3.0]
+    E2 --> E3[E]
+    E2 --> OP2[op: -]
+    E2 --> T2[T]
+    T2 --> N2[number: 2.0]
+    E3 --> T3[T]
+    T3 --> N3[number: 4.0]
+```
+
+### 2.
+```mermaid
+graph TD
+    L2[L] --> E4[E]
+    E4 --> E5[E]
+    E4 --> OP3[op: **]
+    E4 --> T4[T]
+    T4 --> N4[number: 2]
+    E5 --> E6[E]
+    E5 --> OP4[op: **]
+    E5 --> T5[T]
+    T5 --> N5[number: 3]
+    E6 --> T6[T]
+    T6 --> N6[number: 2]
+```
+
+### 3.
+```mermaid
+graph TD
+    L3[L] --> E7[E]
+    E7 --> E8[E]
+    E7 --> OP5[op: /]
+    E7 --> T7[T]
+    T7 --> N7[number: 2]
+    E8 --> E9[E]
+    E8 --> OP6[op: -]
+    E8 --> T8[T]
+    T8 --> N8[number: 4]
+    E9 --> T9[T]
+    T9 --> N9[number: 7]
+```
