@@ -1,35 +1,49 @@
 /* Lexer */
 %lex
 %%
-\s+                                     { /* skip whitespace */;            }
-"//"[^\n]*                              { /* skip single line comments */;  }
-[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?     { return 'NUMBER';                  }
-"**"                                    { return 'OP';                      }
-[-+*/]                                  { return 'OP';                      }
-<<EOF>>                                 { return 'EOF';                     }
-.                                       { return 'INVALID';                 }
+\s+                                   { /* skip whitespace */ }
+"//"[^\n]*                            { /* skip single line comments */ }
+[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?   { return 'NUMBER'; }
+"**"                                  { return 'OPOW'; } 
+[*/]                                  { return 'OPMU'; } 
+[+-]                                  { return 'OPAD'; } 
+"("                                   { return '('; }    
+")"                                   { return ')'; }    
+<<EOF>>                               { return 'EOF'; }
+.                                     { return 'INVALID'; }
 /lex
 
 /* Parser */
 %start expressions
-%token NUMBER
+%token NUMBER OPAD OPMU OPOW
 %%
 
 expressions
-    : expression EOF
-        { return $expression; }
+    : E EOF { return $1; }
     ;
 
-expression
-    : expression OP term
-        { $$ = operate($OP, $expression, $term); }
-    | term
-        { $$ = $term; }
+// Nivel 1: Sumas y Restas (Asociativos por la izquierda)
+E
+    : E OPAD T { $$ = operate($2, $1, $3); }
+    | T        { $$ = $1; }
     ;
 
-term
-    : NUMBER
-        { $$ = Number(yytext); }
+// Nivel 2: Multiplicación y División (Asociativos por la izquierda)
+T
+    : T OPMU R { $$ = operate($2, $1, $3); }
+    | R        { $$ = $1; }
+    ;
+
+// Nivel 3: Potencia (Asociativo por la DERECHA)
+R
+    : F OPOW R { $$ = operate($2, $1, $3); }
+    | F        { $$ = $1; }
+    ;
+
+// Nivel 4: Números y paréntesis
+F
+    : NUMBER   { $$ = Number(yytext); }
+    | "(" E ")" { $$ = $2; }
     ;
 %%
 
