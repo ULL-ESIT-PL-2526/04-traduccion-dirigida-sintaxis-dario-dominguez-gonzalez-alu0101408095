@@ -136,3 +136,8 @@ graph TD
     E9 --> T9[T]
     T9 --> N9[number: 7]
 ```
+
+## 1.3. ¿En qué orden se evaluan las acciones semánticas para cada una de las frases?
+En  esta gramatica, la evaluación se realiza en un recorrido post-orden del árbol de análisis sintáctico. Esto significa que las acciones 
+se ejecutan de abajo hacia arriba y de izquierda a derecha: primero se evalúan las hojas (tokens) y luego las producciones de los niveles 
+inferiores antes de subir a la raíz.
