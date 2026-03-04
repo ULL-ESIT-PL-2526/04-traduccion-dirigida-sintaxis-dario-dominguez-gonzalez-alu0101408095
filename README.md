@@ -52,3 +52,7 @@ Se devuelve el EOF cuando el analizador encuentra el final del archivo.
 
 ### 5. Explique por qué existe la regla . que devuelve INVALID.
 La regla "." con retorno (INVALID) sirve para capturar errores de cualquier carácter que no coincida con las reglas anteriores. Su función es evitar que el analizador se bloquee ante símbolos inesperados, permitiendo que el programa informe al usuario de que ha introducido un carácter no válido.
+
+
+# Practica 5
+
