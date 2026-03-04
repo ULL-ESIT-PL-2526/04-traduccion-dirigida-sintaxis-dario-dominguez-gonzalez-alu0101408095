@@ -65,4 +65,29 @@ describe('Prec Tests', () => {
       expect(parse("1e3 / 10 ** 2")).toBe(10); // 1e3 / 10 ** 2 = 1000 / 100 = 10
     });
   });
+
+  describe('Expresiones con Paréntesis', () => {
+    test('Operaciones con paréntesis', () => {
+      // Sin paréntesis: 2 + 3 * 4 = 14
+      // Con paréntesis: (2 + 3) * 4 = 20
+      expect(parse("(2 + 3) * 4")).toBe(20);
+      // Sin paréntesis: 10 - 6 / 2 = 7
+      // Con paréntesis: (10 - 6) / 2 = 2
+      expect(parse("(10 - 6) / 2")).toBe(2);
+    });
+
+    test('Operaciones con paréntesis anidados', () => {
+      expect(parse("((2 + 3) * 2) ** 2")).toBe(100); // ((2 + 3) * 2) ** 2 = (5 * 2) ** 2 = 10 ** 2 = 100
+    });
+
+    test('Operaciones con paréntesis y números flotantes', () => {
+      expect(parse("(2.5 + 2.5) / 2")).toBe(2.5); // (2.5 + 2.5) / 2 = 5 / 2 = 2.5
+      expect(parse("2 * (10.5 - 0.5)")).toBe(20); // 2 * (10.5 - 0.5) = 2 * 10 = 20
+    });
+
+    test('debe manejar paréntesis en la base o exponente de una potencia', () => {
+      expect(parse("(2 ** 3) ** 2")).toBe(64); // (2 ** 3) ** 2 = 8 ** 2 = 64 (fuerza la asociación a la izquierda)
+      expect(parse("2 ** (3 + 1)")).toBe(16); // 2 ** (3 + 1) = 2 ** 4 = 16
+    });
+  });
 });
