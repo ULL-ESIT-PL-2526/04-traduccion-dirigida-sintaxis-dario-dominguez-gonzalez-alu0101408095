@@ -22,25 +22,25 @@ expressions
     : E EOF { return $1; }
     ;
 
-// Nivel 1: Sumas y Restas (Asociativos por la izquierda)
+// Sumas y Restas (Asociativos por la izquierda)
 E
     : E OPAD T { $$ = operate($2, $1, $3); }
     | T        { $$ = $1; }
     ;
 
-// Nivel 2: Multiplicación y División (Asociativos por la izquierda)
+// Multiplicación y División (Asociativos por la izquierda)
 T
     : T OPMU R { $$ = operate($2, $1, $3); }
     | R        { $$ = $1; }
     ;
 
-// Nivel 3: Potencia (Asociativo por la DERECHA)
+// Potencia (Asociativo por la DERECHA)
 R
     : F OPOW R { $$ = operate($2, $1, $3); }
     | F        { $$ = $1; }
     ;
 
-// Nivel 4: Números y paréntesis
+// Paréntesis
 F
     : NUMBER   { $$ = Number(yytext); }
     | "(" E ")" { $$ = $2; }
